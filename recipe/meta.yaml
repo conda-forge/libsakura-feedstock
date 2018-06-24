@@ -21,9 +21,10 @@ build:
 
 requirements:
   build:
-    - toolchain
-    - gcc  # [osx]
     - cmake
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
     - eigen
     - fftw 3.3.*
   run:
