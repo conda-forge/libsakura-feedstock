@@ -37,7 +37,7 @@ test:
 
 about:
   home: https://tnakazato.github.io/sakura/
-  license: GPLv3
+  license: LGPL-3.0-or-later
   license_file: libsakura/COPYING
   summary: 'C++ library for fast image manipulations'
 
