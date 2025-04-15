@@ -1,44 +1,44 @@
 {% set name = "libsakura" %}
-{% set version = "3.0.0" %}
-{% set sha256 = "f387d6b2f633eca163ffb824df24742c69a3473971c671d10f801b143d4127c5" %}
+{% set version = "5.3.0" %}
+{% set sha256 = "b942c0f990959698c878b753ba9340d593426e3cd74afa85d9c943c1f3e21674" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://svn.cv.nrao.edu/casa/devel/{{ name }}-{{ version }}.tar.gz
+  url: https://github.com/tnakazato/sakura/archive/refs/tags/libsakura-{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
     - compile-fixes.patch
-    - osx.patch  # [osx]
 
 build:
-  number: 1000
-  detect_binary_files_with_prefix: true
+  number: 0
   skip: true  # [win]
+  run_exports:
+    - {{ pin_subpackage(name|lower) }}
 
 requirements:
   build:
-    - cmake
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
+    - cmake <4
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - {{ stdlib("c") }}
+    - ninja
   host:
     - eigen
-    - fftw 3.3.*
-  run:
-    - fftw 3.3.*
+    - fftw
 
 test:
   commands:
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+    - test -f $PREFIX/lib/libsakura$SHLIB_EXT
+    - test -f $PREFIX/lib/pkgconfig/libsakura.pc
+    - test -f $PREFIX/include/libsakura/sakura.h
 
 about:
-  home: http://alma.mtk.nao.ac.jp/j/
+  home: https://tnakazato.github.io/sakura/
   license: GPLv3
-  license_file: COPYING
+  license_file: libsakura/COPYING
   summary: 'C++ library for fast image manipulations'
 
 extra:
