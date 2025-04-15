@@ -1,24 +1,27 @@
 #! /bin/bash
 
+set -xeuo pipefail
+
 cmake_args=(
-    -DBUILD_DOC=OFF
-    -DCMAKE_BUILD_TYPE=Release
-    -DCMAKE_COLOR_MAKEFILE=OFF
-    -DCMAKE_INSTALL_PREFIX=$PREFIX
+    ${CMAKE_ARGS}
+    -GNinja
     -DCMAKE_MODULE_PATH=../cmake-modules
-    -DGTEST_INCLUDE_DIRS=$PREFIX/include
+    -DBUILD_DOC=OFF
+    -DPYTHON_BINDING=OFF
+    -DSIMD_ARCH=GENERIC
+    -DENABLE_TEST=OFF
 )
 
 if [ $(uname) = Darwin ] ; then
     cmake_args+=(
-	-DCMAKE_CXX_FLAGS="$CXXFLAGS -stdlib=libc++"
-	-DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET
-	-DCMAKE_OSX_SYSROOT=/
+        -DCMAKE_CXX_FLAGS="$CXXFLAGS -stdlib=libc++"
+        -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET
+        -DCMAKE_OSX_SYSROOT=/
     )
 fi
 
 mkdir condabuild
 cd condabuild
-cmake "${cmake_args[@]}" ..
-make VERBOSE=1 # note: not parallel-compatible
-make install
+cmake "${cmake_args[@]}" ../libsakura
+ninja -v -j$CPU_COUNT
+ninja install
