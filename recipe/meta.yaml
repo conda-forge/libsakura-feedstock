@@ -1,6 +1,6 @@
 {% set name = "libsakura" %}
-{% set version = "5.3.0" %}
-{% set sha256 = "b942c0f990959698c878b753ba9340d593426e3cd74afa85d9c943c1f3e21674" %}
+{% set version = "5.3.1" %}
+{% set sha256 = "e1358597527d027d50b1ebcc2b895b3fc24e457a1387a08f0f186dff322ab18c" %}
 
 package:
   name: {{ name|lower }}
