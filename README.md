@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libsakura-feeds
 
 Home: https://tnakazato.github.io/sakura/
 
-Package license: GPLv3
+Package license: LGPL-3.0-or-later
 
 Summary: C++ library for fast image manipulations
 
