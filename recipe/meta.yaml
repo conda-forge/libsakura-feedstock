@@ -11,6 +11,7 @@ source:
   sha256: {{ sha256 }}
   patches:
     - compile-fixes.patch
+    - fix-m64-flag.patch
 
 build:
   number: 0
