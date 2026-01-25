@@ -14,7 +14,7 @@ source:
     - fix-m64-flag.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   run_exports:
     - {{ pin_subpackage(name|lower) }}
